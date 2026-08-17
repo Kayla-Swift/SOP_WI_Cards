@@ -315,4 +315,15 @@ figcaption {
   .media-grid {
     grid-template-columns: 1fr;
   }
+
+  /* On small screens, remove the darker page background and simplify the player surface */
+  body {
+    background: var(--background);
+  }
+
+  .player {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+  }
 }

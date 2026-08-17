@@ -6,7 +6,6 @@
   }
 
   const cardElement = document.getElementById("learning-card");
-  const flipButton = document.getElementById("flip-button");
   const previousButton = document.getElementById("previous-button");
   const nextButton = document.getElementById("next-button");
   const dotsElement = document.getElementById("card-dots");
@@ -25,7 +24,6 @@
   const mediaGridElement = document.getElementById("media-grid");
 
   let currentIndex = 0;
-  let isFlipped = false;
 
   applyTheme(deck.theme || {});
   titleElement.textContent = deck.title || "SOP Learning Cards";
@@ -78,8 +76,6 @@
       mediaGridElement.appendChild(createMediaCard(mediaItem));
     });
 
-    isFlipped = false;
-    cardElement.classList.remove("is-flipped");
     renderDots();
     updateButtons();
   }
@@ -164,51 +160,82 @@
   function updateButtons() {
     previousButton.disabled = currentIndex === 0;
     nextButton.disabled = currentIndex === deck.cards.length - 1;
-    flipButton.textContent = isFlipped ? "Show front" : "Flip card";
   }
 
-  flipButton.addEventListener("click", function () {
-    isFlipped = !isFlipped;
-    cardElement.classList.toggle("is-flipped", isFlipped);
-    updateButtons();
-  });
+  function next() {
+    if (currentIndex === deck.cards.length - 1) return;
+    currentIndex += 1;
+    render();
+  }
 
-  previousButton.addEventListener("click", function () {
-    if (currentIndex === 0) {
-      return;
-    }
-
+  function previous() {
+    if (currentIndex === 0) return;
     currentIndex -= 1;
     render();
+  }
+
+  previousButton.addEventListener("click", function () {
+    previous();
   });
 
   nextButton.addEventListener("click", function () {
-    if (currentIndex === deck.cards.length - 1) {
-      return;
-    }
-
-    currentIndex += 1;
-    render();
+    next();
   });
 
   document.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-      previousButton.click();
+    const activeTag = document.activeElement && document.activeElement.tagName;
+    if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT') return;
+
+    if (event.key === "ArrowLeft") previous();
+    if (event.key === "ArrowRight") next();
+    if (event.key === "Home") {
+      currentIndex = 0; render();
     }
-
-    if (event.key === "ArrowRight") {
-      nextButton.click();
-    }
-
-    if (event.key === " " || event.key === "Enter") {
-      if (event.target.tagName === "BUTTON") {
-        return;
-      }
-
-      event.preventDefault();
-      flipButton.click();
+    if (event.key === "End") {
+      currentIndex = deck.cards.length - 1; render();
     }
   });
+
+  // Click zones: left = previous, right = next. On mobile, tap advances next.
+  cardElement.addEventListener('click', function (event) {
+    const tag = event.target && event.target.tagName;
+    if (tag && ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT', 'VIDEO', 'SOURCE', 'IFRAME'].includes(tag)) return;
+    if (mediaGridElement.contains(event.target)) return;
+
+    const rect = cardElement.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const pct = x / rect.width;
+    const isMobile = window.matchMedia('(max-width:640px)').matches;
+
+    if (isMobile) {
+      next();
+      return;
+    }
+
+    if (pct < 0.4) previous();
+    else if (pct > 0.6) next();
+  });
+
+  // Touch/swipe handling
+  let touchStartX = null;
+  cardElement.addEventListener('touchstart', function (e) {
+    if (e.touches && e.touches[0]) touchStartX = e.touches[0].clientX;
+  }, {passive: true});
+
+  cardElement.addEventListener('touchend', function (e) {
+    if (touchStartX === null) return;
+    const endX = (e.changedTouches && e.changedTouches[0] && e.changedTouches[0].clientX) || null;
+    if (endX === null) { touchStartX = null; return; }
+    const delta = endX - touchStartX;
+    touchStartX = null;
+    const threshold = 40;
+    if (Math.abs(delta) > threshold) {
+      if (delta < 0) next(); else previous();
+    } else {
+      // short tap
+      next();
+    }
+  }, {passive: true});
 
   render();
 })();
