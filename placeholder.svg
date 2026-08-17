@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="title description">
+  <title id="title">Placeholder image</title>
+  <desc id="description">A simple placeholder landscape image for slide 2.</desc>
+  <rect width="800" height="500" fill="#e9e5ff"/>
+  <circle cx="610" cy="145" r="58" fill="#f4b942"/>
+  <path d="M0 390 190 220l125 105 105-92 250 157H0Z" fill="#7c3aed" opacity=".78"/>
+  <path d="m270 500 175-180 72 66 84-78 190 192H270Z" fill="#4c2a91" opacity=".82"/>
+  <rect x="42" y="40" width="270" height="58" rx="12" fill="#ffffff" opacity=".82"/>
+  <text x="70" y="78" fill="#1f1637" font-family="Arial, sans-serif" font-size="25" font-weight="700">Image placeholder</text>
+</svg>

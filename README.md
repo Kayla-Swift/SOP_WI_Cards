@@ -9,6 +9,35 @@ A lightweight, editable SOP/WI learning card template inspired by swipe-based le
 - `/home/runner/work/SOP_WI_Cards/SOP_WI_Cards/app.js` – renders cards and handles navigation/flip behavior
 - `/home/runner/work/SOP_WI_Cards/SOP_WI_Cards/cards-data.js` – manually editable content for each card set
 
+## Section assets
+
+Store reusable card-set media under `sections`:
+
+```text
+sections/
+  shared/
+    images/
+    gifs/
+    videos/
+    audio/
+  device-validation/
+    images/
+    gifs/
+    videos/
+    audio/
+```
+
+Create another folder under `sections` for each new card set. Reference files
+from the card data with paths such as:
+
+```js
+{
+  type: "image",
+  src: "./sections/device-validation/images/step-1.png",
+  alt: "Device validation step"
+}
+```
+
 ## How to update the cards
 
 1. Open `/home/runner/work/SOP_WI_Cards/SOP_WI_Cards/cards-data.js`.
@@ -21,8 +50,12 @@ A lightweight, editable SOP/WI learning card template inspired by swipe-based le
    - `body`
    - `bullets`
    - `media`
+  - `question`
 
 ### Media examples
+
+Media supports images, animated GIFs, videos, audio, and buttons/links. Use
+`type: "gif"` for an animated GIF and `type: "audio"` for narration.
 
 ```js
 {
@@ -40,6 +73,44 @@ A lightweight, editable SOP/WI learning card template inspired by swipe-based le
   src: "https://www.w3schools.com/html/mov_bbb.mp4",
   poster: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
   caption: "Optional video caption"
+}
+```
+
+```js
+{
+  type: "audio",
+  src: "./narration.mp3",
+  title: "Step narration",
+  caption: "Listen to the explanation"
+}
+```
+
+### Knowledge checks
+
+Use `question` for multiple-choice, True/False, or poll/survey cards. A question
+with `correctAnswer` is graded; omit `correctAnswer` for an ungraded poll.
+
+```js
+{
+  type: "multiple-choice",
+  prompt: "Which device is being validated?",
+  choices: [
+    { label: "Ray 1", value: "ray-1" },
+    { label: "Other device", value: "other" }
+  ],
+  correctAnswer: "ray-1"
+}
+```
+
+```js
+{
+  type: "poll",
+  prompt: "Which topic would you like more practice with?",
+  choices: [
+    { label: "Camera testing", value: "camera" },
+    { label: "Ray 1 testing", value: "ray-1" }
+  ],
+  thanksMessage: "Thanks for your response."
 }
 ```
 

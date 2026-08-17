@@ -23,12 +23,15 @@
         </div>
 
         <div class="card-frame">
+          <div id="previous-peek" class="card-peek card-peek-previous" aria-hidden="true"></div>
           <article id="learning-card" class="learning-card" aria-live="polite">
             <div class="card-face card-front">
               <div class="card-copy">
                 <span id="front-tag" class="pill"></span>
                 <h2 id="front-title"></h2>
                 <p id="front-summary"></p>
+                <div id="front-action" class="front-action"></div>
+                <div id="check-question" class="check-question"></div>
               </div>
             </div>
             <div class="card-face card-back">
@@ -43,6 +46,7 @@
               </div>
             </div>
           </article>
+          <div id="next-peek" class="card-peek card-peek-next" aria-hidden="true"></div>
         </div>
 
         <div class="player-controls">
