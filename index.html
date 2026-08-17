@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOP Learning Cards</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">SOP &amp; Work Instruction Template</p>
+        <h1 id="deck-title">Loading deck…</h1>
+        <p id="deck-description" class="hero-copy"></p>
+      </section>
+
+      <section class="player" aria-label="Learning cards">
+        <div class="player-toolbar">
+          <div class="player-status">
+            <span id="card-counter">0 / 0</span>
+            <span id="card-tag" class="pill"></span>
+          </div>
+          <button id="flip-button" class="secondary-button" type="button">
+            Flip card
+          </button>
+        </div>
+
+        <div class="card-frame">
+          <article id="learning-card" class="learning-card" aria-live="polite">
+            <div class="card-face card-front">
+              <div class="card-copy">
+                <span id="front-tag" class="pill"></span>
+                <h2 id="front-title"></h2>
+                <p id="front-summary"></p>
+              </div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-content">
+                <div class="card-copy">
+                  <span id="back-tag" class="pill"></span>
+                  <h2 id="back-title"></h2>
+                  <p id="back-body"></p>
+                  <ul id="back-bullets" class="bullet-list"></ul>
+                </div>
+                <div id="media-grid" class="media-grid"></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="player-controls">
+          <button id="previous-button" class="ghost-button" type="button">
+            Previous
+          </button>
+          <div id="card-dots" class="card-dots" aria-label="Card position"></div>
+          <button id="next-button" class="primary-button" type="button">
+            Next
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./cards-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
