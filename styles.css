@@ -116,6 +116,17 @@ button:disabled {
   margin: 1rem 0;
 }
 
+/* Constrain card width for better layout and centering */
+.card-frame {
+  display: flex;
+  justify-content: center;
+}
+
+.learning-card {
+  width: min(520px, 86vw);
+  margin: 0 auto;
+}
+
 .learning-card {
   position: relative;
   min-height: 65vh;
@@ -164,6 +175,7 @@ button:disabled {
 .bullet-list,
 figcaption {
   line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 .card-back {

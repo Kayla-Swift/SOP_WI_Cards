@@ -52,6 +52,8 @@
   function render() {
     const card = deck.cards[currentIndex];
 
+    console.log('Rendering card', currentIndex, card && card.title);
+
     counterElement.textContent = `${currentIndex + 1} / ${deck.cards.length}`;
 
     const tag = card.tag || `Card ${currentIndex + 1}`;
@@ -61,8 +63,11 @@
 
     frontTitleElement.textContent = card.title || "";
     backTitleElement.textContent = card.title || "";
-    frontSummaryElement.textContent = card.summary || "";
-    backBodyElement.textContent = card.body || "";
+    // Show summary and fall back to body on the front so content isn't hidden
+    frontSummaryElement.textContent = card.summary
+      ? card.summary + (card.body ? "\n\n" + card.body : "")
+      : card.body || "";
+    backBodyElement.textContent = card.body || card.summary || "";
 
     bulletsElement.innerHTML = "";
     (card.bullets || []).forEach(function (bullet) {
