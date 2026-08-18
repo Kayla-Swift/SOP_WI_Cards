@@ -2,7 +2,7 @@ window.sopCardSets = window.sopCardSets || {};
 
 window.sopCardSets["sin-wi-3023"] = {
   documentType: "WI",
-  documentNumber: "SIN-WI-3023_A",
+  documentNumber: "3023",
   documentTitle: "Ray 1 - Return and Replacement Process",
   documentUrl:
     "https://swiftmedical.sharepoint.com/sites/DocumentManagementSystemSpace/SitePages/SOP--Swift-Ray-1-Returns-and-Replacements.aspx?web=1",
@@ -17,7 +17,7 @@ window.sopCardSets["sin-wi-3023"] = {
   cards: [
     {
       tag: "Title",
-      title: "SIN-WI-3023_A",
+      title: "WI 3023",
       summary: "Ray 1 - Return and Replacement Process",
     },
     {
@@ -65,6 +65,15 @@ window.sopCardSets["sin-wi-3023"] = {
       title: "Send a Replacement",
       summary:
         "After receiving the Halo ticket RMA form, ProdOps sends a replacement device when necessary to minimize disruption to the client workflow. This occurs before receiving and investigating the returned device.",
+      media: [
+        {
+          type: "image",
+          src: "./sections/sin-wi-3023/images/rma-form.svg",
+          alt: "RMA Form: Submit RMA for Ray Devices",
+          height: "11rem",
+          fit: "contain",
+        },
+      ],
     },
     {
       tag: "Check",
