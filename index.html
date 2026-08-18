@@ -9,8 +9,10 @@
   <body>
     <main class="app-shell">
       <section class="hero">
-        <p class="eyebrow">SOP &amp; Work Instruction Template</p>
-        <h1 id="deck-title">Loading deck…</h1>
+        <a id="deck-link" class="deck-link" target="_blank" rel="noopener noreferrer">
+          <h1 id="deck-title"></h1>
+          <span id="deck-cta" class="pill deck-cta"></span>
+        </a>
         <p id="deck-description" class="hero-copy"></p>
       </section>
 
@@ -20,15 +22,30 @@
             <span id="card-counter">0 / 0</span>
             <span id="card-tag" class="pill"></span>
           </div>
+          <button
+            id="restart-button"
+            class="restart-button"
+            type="button"
+            title="Return to the first card"
+            aria-label="Return to the first card"
+          >
+            Start over
+          </button>
         </div>
 
         <div class="card-frame">
+          <button id="previous-nav" class="card-nav card-nav-previous" type="button" aria-label="Previous card">
+            <span class="card-nav-icon" aria-hidden="true"></span>
+          </button>
+          <div id="previous-peek" class="card-peek card-peek-previous" aria-hidden="true"></div>
           <article id="learning-card" class="learning-card" aria-live="polite">
             <div class="card-face card-front">
               <div class="card-copy">
                 <span id="front-tag" class="pill"></span>
                 <h2 id="front-title"></h2>
                 <p id="front-summary"></p>
+                <div id="front-action" class="front-action"></div>
+                <div id="check-question" class="check-question"></div>
               </div>
             </div>
             <div class="card-face card-back">
@@ -43,6 +60,10 @@
               </div>
             </div>
           </article>
+          <div id="next-peek" class="card-peek card-peek-next" aria-hidden="true"></div>
+          <button id="next-nav" class="card-nav card-nav-next" type="button" aria-label="Next card">
+            <span class="card-nav-icon" aria-hidden="true"></span>
+          </button>
         </div>
 
         <div class="player-controls">
@@ -58,6 +79,15 @@
     </main>
 
     <script src="./cards-data.js"></script>
+    <script src="./sections/sop-22/cards-data.js"></script>
+    <script src="./sections/sop-38/cards-data.js"></script>
+    <script src="./sections/sop-12/cards-data.js"></script>
+    <script src="./sections/sop-2062/cards-data.js"></script>
+    <script src="./sections/rec-2215/cards-data.js"></script>
+    <script src="./sections/tmp-2575/cards-data.js"></script>
+    <script src="./sections/wi-2436/cards-data.js"></script>
+    <script src="./sections/wi-2560/cards-data.js"></script>
+    <script src="./sections/sin-wi-3023/cards-data.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
