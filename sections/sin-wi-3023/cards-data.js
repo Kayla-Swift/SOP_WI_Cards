@@ -24,35 +24,16 @@ window.sopCardSets["sin-wi-3023"] = {
       tag: "Document",
       title: "Introduction",
       summary:
-        "This procedure defines the steps for Ray 1 returns requested through an RMA, including the damage or issues that qualify for a complimentary replacement or incur a fee.",
+        "This procedure defines the steps for Ray 1 returns requested through an RMA, including the damage or issues that qualify for a complimentary replacement or incur a fee. It applies to all Swift Ray 1 devices shipped and distributed to customers that are returned under an RMA.",
       action: {
         label: "Open WI in SharePoint",
         url: "https://swiftmedical.sharepoint.com/sites/DocumentManagementSystemSpace/SitePages/SOP--Swift-Ray-1-Returns-and-Replacements.aspx?web=1",
       },
-    },
-    {
-      tag: "Scope",
-      title: "Scope",
-      summary:
-        "This procedure applies to all Swift Ray 1 devices shipped and distributed to customers that are returned under an RMA.",
-    },
-    {
-      tag: "Reference",
-      title: "Reference Document",
-      summary:
-        "Use the Swift Ray 1 Failure Analysis Form [SIN-FRM-2472_A] for the return and replacement process.",
-    },
-    {
-      tag: "Acronyms",
-      title: "Applicable Acronyms",
-      summary:
-        "RMA means Return Merchandise Authorization. DMS means Document Management System. RCA means Root Cause Analysis.",
-    },
-    {
-      tag: "Roles",
-      title: "Process Roles",
-      summary:
-        "Customer Support triages service requests and starts the RMA. Operations handles returned devices and investigations. QA/RA approves disposition and compliance. Finance/Growth collects a fee when warranty is voided.",
+      sectionButtons: [
+        { label: "5.1 Responsibilities", targetTag: "5.1 Step 1" },
+        { label: "5.2 When is a Replacement Sent?", targetTag: "5.2" },
+        { label: "5.3 Investigation Process", targetTag: "5.3 Step 1" },
+      ],
     },
     {
       tag: "5.1 Step 1",

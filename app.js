@@ -1,7 +1,11 @@
 (function () {
-  const deck = window.sopDeck;
+  const cardSets = window.sopCardSets || {};
+  const setKeys = Object.keys(cardSets);
+  const requestedSet = new URLSearchParams(window.location.search).get("set");
+  let currentDeck = cardSets[requestedSet] || cardSets[setKeys[0]];
+  let visibleCards = [];
 
-  if (!deck || !Array.isArray(deck.cards) || deck.cards.length === 0) {
+  if (!currentDeck || !Array.isArray(currentDeck.cards) || currentDeck.cards.length === 0) {
     return;
   }
 
@@ -13,6 +17,8 @@
   const nextPeekElement = document.getElementById("next-peek");
 
   const titleElement = document.getElementById("deck-title");
+  const linkElement = document.getElementById("deck-link");
+  const ctaElement = document.getElementById("deck-cta");
   const descriptionElement = document.getElementById("deck-description");
   const counterElement = document.getElementById("card-counter");
   const cardTagElement = document.getElementById("card-tag");
@@ -26,15 +32,49 @@
   const backBodyElement = document.getElementById("back-body");
   const bulletsElement = document.getElementById("back-bullets");
   const mediaGridElement = document.getElementById("media-grid");
+  const previousNavButton = document.getElementById("previous-nav");
+  const nextNavButton = document.getElementById("next-nav");
 
   let currentIndex = 0;
   let animationDirection = "";
   let pointerStartX = null;
   let pointerDragging = false;
 
-  applyTheme(deck.theme || {});
-  titleElement.textContent = deck.title || "SOP Learning Cards";
-  descriptionElement.textContent = deck.description || "";
+
+  function applyDeck() {
+    applyTheme(currentDeck.theme || {});
+    renderDeckHeading();
+    descriptionElement.textContent = currentDeck.description || "";
+    visibleCards = currentDeck.cards.filter(function (card) {
+      return card.type !== "title" && card.tag !== "Title";
+    });
+    currentIndex = 0;
+    animationDirection = "";
+    cardElement.classList.remove("is-moving-next", "is-moving-previous", "is-flipped");
+    render();
+  }
+
+  function renderDeckHeading() {
+    const heading = [
+      currentDeck.documentType,
+      currentDeck.documentNumber,
+      currentDeck.documentTitle,
+    ].filter(Boolean);
+
+    titleElement.textContent = heading.length
+      ? heading.join(" | ")
+      : currentDeck.title || "SOP Learning Cards";
+
+    const documentUrl = getAllowedMediaSource(currentDeck.documentUrl);
+    if (documentUrl) {
+      linkElement.href = documentUrl;
+      ctaElement.textContent = currentDeck.linkLabel || "Click to Open in the DMS";
+    } else {
+      linkElement.removeAttribute("href");
+      ctaElement.textContent = "";
+    }
+  }
+
 
   function applyTheme(theme) {
     const root = document.documentElement;
@@ -57,11 +97,11 @@
   }
 
   function render() {
-    const card = deck.cards[currentIndex];
+    const card = visibleCards[currentIndex];
 
     console.log('Rendering card', currentIndex, card && card.title);
 
-    counterElement.textContent = `${currentIndex + 1} / ${deck.cards.length}`;
+    counterElement.textContent = `${currentIndex + 1} / ${visibleCards.length}`;
 
     const tag = card.tag || `Card ${currentIndex + 1}`;
     cardTagElement.textContent = tag;
@@ -71,10 +111,11 @@
     frontTitleElement.textContent = card.title || "";
     backTitleElement.textContent = card.title || "";
     // Show summary and fall back to body on the front so content isn't hidden
-    frontSummaryElement.textContent = card.summary
+    const frontText = card.summary
       ? card.summary + (card.body ? "\n\n" + card.body : "")
       : card.body || "";
-    backBodyElement.textContent = card.body || card.summary || "";
+    renderLinkedText(frontSummaryElement, frontText, card.links);
+    renderLinkedText(backBodyElement, card.body || card.summary || "", card.links);
 
     bulletsElement.innerHTML = "";
     (card.bullets || []).forEach(function (bullet) {
@@ -114,24 +155,75 @@
     }
   }
 
+  function renderLinkedText(element, text, links) {
+    element.innerHTML = "";
+    const validLinks = Array.isArray(links)
+      ? links.filter(function (link) {
+          return link && typeof link.text === "string" && getAllowedMediaSource(link.url);
+        })
+      : [];
+
+    if (validLinks.length === 0) {
+      element.textContent = text;
+      return;
+    }
+
+    let remainingText = text;
+    validLinks.forEach(function (link) {
+      const linkIndex = remainingText.indexOf(link.text);
+      if (linkIndex === -1) return;
+
+      element.appendChild(document.createTextNode(remainingText.slice(0, linkIndex)));
+      const anchor = document.createElement("a");
+      anchor.href = link.url;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      anchor.textContent = link.text;
+      element.appendChild(anchor);
+      remainingText = remainingText.slice(linkIndex + link.text.length);
+    });
+
+    element.appendChild(document.createTextNode(remainingText));
+  }
+
   function renderFrontAction(card) {
     frontActionElement.innerHTML = "";
     const linkMedia = (card.media || []).find(function (mediaItem) {
       return mediaItem.type === "button";
     });
 
-    if (!linkMedia) return;
+    if (linkMedia) {
+      const source = getAllowedMediaSource(linkMedia.src);
+      if (source) {
+        const link = document.createElement("a");
+        link.className = "front-wi-button";
+        link.href = source;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = linkMedia.buttonLabel || "Open full WI";
+        frontActionElement.appendChild(link);
+      }
+    }
 
-    const source = getAllowedMediaSource(linkMedia.src);
-    if (!source) return;
+    (card.sectionButtons || []).forEach(function (sectionButton) {
+      const targetIndex = visibleCards.findIndex(function (targetCard) {
+        return targetCard.tag === sectionButton.targetTag;
+      });
+      if (targetIndex === -1) return;
 
-    const link = document.createElement("a");
-    link.className = "front-wi-button";
-    link.href = source;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = linkMedia.buttonLabel || "Open full WI";
-    frontActionElement.appendChild(link);
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "front-section-button";
+      button.textContent = sectionButton.label;
+      button.addEventListener("click", function (event) {
+        event.stopPropagation();
+        transitionTo(
+          targetIndex,
+          targetIndex > currentIndex ? "next" : "previous"
+        );
+      });
+      frontActionElement.appendChild(button);
+    });
   }
 
   function renderCheckQuestion(card) {
@@ -144,20 +236,60 @@
     prompt.textContent = question.prompt || "Check your understanding";
     checkQuestionElement.appendChild(prompt);
 
+    const feedback = document.createElement("p");
+    feedback.className = "question-feedback";
+    feedback.setAttribute("aria-live", "polite");
+    checkQuestionElement.appendChild(feedback);
+
     const choices = document.createElement("div");
     choices.className = "question-choices";
+    const correctAnswers = question.correctAnswers ||
+      (question.correctAnswer !== undefined ? [question.correctAnswer] : []);
+    const hasCorrectAnswer = correctAnswers.length > 0;
+    const isMultiSelect = correctAnswers.length > 1;
+    const selectedValues = new Set();
+
+    if (isMultiSelect) {
+      const instruction = document.createElement("p");
+      instruction.className = "question-instruction";
+      instruction.textContent = "Multiple select: choose all that apply.";
+      checkQuestionElement.appendChild(instruction);
+      choices.classList.add("is-multi-select");
+    }
+
     (question.choices || []).forEach(function (choice) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "question-choice";
-      button.textContent = choice.label;
-      button.addEventListener("click", function () {
-        choices.querySelectorAll("button").forEach(function (choiceButton) {
-          choiceButton.disabled = true;
-        });
 
-        const hasCorrectAnswer = question.correctAnswer !== undefined;
-        const isCorrect = hasCorrectAnswer && choice.value === question.correctAnswer;
+      const label = document.createElement("span");
+      label.className = "question-choice-label";
+      label.textContent = choice.label;
+      button.appendChild(label);
+
+      button.addEventListener("click", function (event) {
+        event.stopPropagation();
+        if (choices.classList.contains("is-answered")) return;
+
+        if (isMultiSelect) {
+          if (selectedValues.has(choice.value)) {
+            selectedValues.delete(choice.value);
+            button.classList.remove("is-selected");
+          } else {
+            selectedValues.add(choice.value);
+            button.classList.add("is-selected");
+          }
+          return;
+        }
+
+        choices.classList.add("is-answered");
+
+        const isCorrect = hasCorrectAnswer &&
+          selectedValues.size > 0
+          ? selectedValues.size === correctAnswers.length &&
+            correctAnswers.every(function (answer) { return selectedValues.has(answer); })
+          : correctAnswers.includes(choice.value);
+
         if (!hasCorrectAnswer) {
           button.classList.add("is-selected");
           feedback.textContent = question.thanksMessage || "Thanks for your response.";
@@ -165,34 +297,57 @@
           return;
         }
 
-        button.classList.add(isCorrect ? "is-correct" : "is-incorrect");
-        if (!isCorrect) {
-          choices.querySelectorAll("button").forEach(function (choiceButton) {
-            const matchingChoice = (question.choices || []).find(function (item) {
-              return item.label === choiceButton.textContent;
-            });
-            if (matchingChoice && matchingChoice.value === question.correctAnswer) {
-              choiceButton.classList.add("is-correct");
-            }
-          });
-        }
-        feedback.textContent = isCorrect
-          ? question.correctMessage || "Correct"
-          : question.incorrectMessage || "Try again on the next card";
+        (question.choices || []).forEach(function (item, index) {
+          const choiceButton = choices.children[index];
+          choiceButton.disabled = true;
+          choiceButton.classList.add(
+            correctAnswers.includes(item.value) ? "is-correct" : "is-incorrect"
+          );
+        });
+
+        feedback.textContent =
+          question.comment ||
+          (isCorrect
+            ? question.correctMessage || "Correct"
+            : question.incorrectMessage || "Review the correct answer above.");
         feedback.className = `question-feedback ${isCorrect ? "is-correct" : "is-incorrect"}`;
       });
+
       choices.appendChild(button);
     });
+
     checkQuestionElement.appendChild(choices);
 
-    const feedback = document.createElement("p");
-    feedback.className = "question-feedback";
-    feedback.setAttribute("aria-live", "polite");
-    checkQuestionElement.appendChild(feedback);
+    if (isMultiSelect) {
+      const submitButton = document.createElement("button");
+      submitButton.type = "button";
+      submitButton.className = "question-submit";
+      submitButton.textContent = "Check answers";
+      submitButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        if (selectedValues.size === 0 || choices.classList.contains("is-answered")) return;
+        choices.classList.add("is-answered");
+        (question.choices || []).forEach(function (item, index) {
+          const choiceButton = choices.children[index];
+          choiceButton.disabled = true;
+          choiceButton.classList.remove("is-selected");
+          choiceButton.classList.add(
+            correctAnswers.includes(item.value) ? "is-correct" : "is-incorrect"
+          );
+        });
+        const isCorrect = selectedValues.size === correctAnswers.length &&
+          correctAnswers.every(function (answer) { return selectedValues.has(answer); });
+        feedback.textContent = question.comment ||
+          (isCorrect ? question.correctMessage || "Correct" : "Review the correct answers above.");
+        feedback.className = `question-feedback ${isCorrect ? "is-correct" : "is-incorrect"}`;
+        submitButton.disabled = true;
+      });
+      checkQuestionElement.appendChild(submitButton);
+    }
   }
 
   function transitionTo(index, direction) {
-    if (index < 0 || index >= deck.cards.length || index === currentIndex) {
+    if (index < 0 || index >= visibleCards.length || index === currentIndex) {
       return;
     }
 
@@ -222,6 +377,8 @@
     }
 
     frontMediaElement.innerHTML = "";
+    frontMediaElement.style.removeProperty("--front-media-height");
+    frontMediaElement.style.removeProperty("--front-media-fit");
     if (card.question) return;
 
     const image = (card.media || []).find(function (mediaItem) {
@@ -231,17 +388,33 @@
     if (image) {
       const source = getAllowedMediaSource(image.src);
       if (source) {
+        const height = image.height || currentDeck.mediaHeight;
+        const fit = image.fit || currentDeck.mediaFit;
+        if (height) {
+          frontMediaElement.style.setProperty("--front-media-height", height);
+        }
+        if (fit) {
+          frontMediaElement.style.setProperty("--front-media-fit", fit);
+        }
+
         const imageElement = document.createElement("img");
         imageElement.src = source;
         imageElement.alt = image.alt || "";
+        imageElement.loading = "lazy";
+        imageElement.addEventListener("error", function () {
+          const fallbackSource = getAllowedMediaSource(image.fallbackSrc);
+          if (fallbackSource && imageElement.src !== fallbackSource) {
+            imageElement.src = fallbackSource;
+          }
+        });
         frontMediaElement.appendChild(imageElement);
       }
     }
   }
 
   function renderPeeks() {
-    const previousCard = deck.cards[currentIndex - 1];
-    const nextCard = deck.cards[currentIndex + 1];
+    const previousCard = visibleCards[currentIndex - 1];
+    const nextCard = visibleCards[currentIndex + 1];
 
     previousPeekElement.innerHTML = previousCard
       ? `<strong>${previousCard.title || "Previous card"}</strong><span>${previousCard.summary || ""}</span>`
@@ -305,6 +478,12 @@
       image.src = source;
       image.alt = mediaItem.alt || "";
       image.loading = "lazy";
+      image.addEventListener("error", function () {
+        const fallbackSource = getAllowedMediaSource(mediaItem.fallbackSrc);
+        if (fallbackSource && image.src !== fallbackSource) {
+          image.src = fallbackSource;
+        }
+      });
       if (mediaItem.type === "gif") {
         image.setAttribute("data-media-type", "gif");
       }
@@ -335,7 +514,7 @@
   function renderDots() {
     dotsElement.innerHTML = "";
 
-    deck.cards.forEach(function (_, index) {
+    visibleCards.forEach(function (_, index) {
       const dot = document.createElement("button");
       dot.type = "button";
       dot.className = index === currentIndex ? "dot is-active" : "dot";
@@ -348,12 +527,17 @@
   }
 
   function updateButtons() {
-    previousButton.disabled = currentIndex === 0;
-    nextButton.disabled = currentIndex === deck.cards.length - 1;
+    const isFirst = currentIndex === 0;
+    const isLast = currentIndex === visibleCards.length - 1;
+
+    previousButton.disabled = isFirst;
+    nextButton.disabled = isLast;
+    previousNavButton.disabled = isFirst;
+    nextNavButton.disabled = isLast;
   }
 
   function next() {
-    if (currentIndex === deck.cards.length - 1) return;
+    if (currentIndex === visibleCards.length - 1) return;
     transitionTo(currentIndex + 1, "next");
   }
 
@@ -370,6 +554,14 @@
     next();
   });
 
+  previousNavButton.addEventListener("click", function () {
+    previous();
+  });
+
+  nextNavButton.addEventListener("click", function () {
+    next();
+  });
+
   document.addEventListener("keydown", function (event) {
     const activeTag = document.activeElement && document.activeElement.tagName;
     if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT') return;
@@ -380,14 +572,19 @@
       transitionTo(0, "previous");
     }
     if (event.key === "End") {
-      transitionTo(deck.cards.length - 1, "next");
+      transitionTo(visibleCards.length - 1, "next");
     }
   });
 
+  const interactiveSelector = "button, a, input, textarea, select, label, video, audio, iframe";
+
+  function isInteractiveTarget(target) {
+    return Boolean(target && target.closest && target.closest(interactiveSelector));
+  }
+
   // Click zones: left = previous, right = next. On mobile, tap advances next.
   cardElement.addEventListener('click', function (event) {
-    const tag = event.target && event.target.tagName;
-    if (tag && ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT', 'VIDEO', 'SOURCE', 'IFRAME'].includes(tag)) return;
+    if (isInteractiveTarget(event.target)) return;
     if (mediaGridElement.contains(event.target)) return;
 
     const rect = cardElement.getBoundingClientRect();
@@ -406,15 +603,19 @@
 
   cardElement.addEventListener("pointerdown", function (event) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (isInteractiveTarget(event.target)) return;
     pointerStartX = event.clientX;
     pointerDragging = true;
     cardElement.classList.add("is-dragging");
-    cardElement.setPointerCapture(event.pointerId);
   });
 
   cardElement.addEventListener("pointermove", function (event) {
     if (!pointerDragging || pointerStartX === null) return;
     const offset = event.clientX - pointerStartX;
+    // Capture only once the gesture is clearly a swipe so taps still reach buttons.
+    if (Math.abs(offset) > 8 && !cardElement.hasPointerCapture(event.pointerId)) {
+      cardElement.setPointerCapture(event.pointerId);
+    }
     cardElement.style.setProperty("--drag-offset", `${offset}px`);
   });
 
@@ -438,5 +639,5 @@
     cardElement.style.removeProperty("--drag-offset");
   });
 
-  render();
+  applyDeck();
 })();
