@@ -55,16 +55,16 @@ window.sopCardSets["sin-wi-3023"] = {
         "Customer Support triages service requests and starts the RMA. Operations handles returned devices and investigations. QA/RA approves disposition and compliance. Finance/Growth collects a fee when warranty is voided.",
     },
     {
-      tag: "Step 1",
-      title: "Triage and RMA Request",
+      tag: "5.1 Step 1",
+      title: "5.1 Step 1: Triage Service Requests",
       summary:
-        "Customer Support triages service requests and assigns possible Ray hardware issues to Operations. If troubleshooting determines the device should be returned, request the customer submit an RMA form through Halo.",
+        "Customer Support triages service requests and assigns possible Ray hardware issues to Operations.",
     },
     {
-      tag: "Step 2",
-      title: "Send a Replacement",
+      tag: "5.1 Step 2",
+      title: "5.1 Step 2: Request an RMA Form",
       summary:
-        "After receiving the Halo ticket RMA form, ProdOps sends a replacement device when necessary to minimize disruption to the client workflow. This occurs before receiving and investigating the returned device.",
+        "After Support and/or Operations determines the device should be returned, request that the customer submit an RMA form through Halo.",
       media: [
         {
           type: "image",
@@ -74,6 +74,47 @@ window.sopCardSets["sin-wi-3023"] = {
           fit: "contain",
         },
       ],
+    },
+    {
+      tag: "5.1 Step 3",
+      title: "5.1 Step 3: Send Replacement Device",
+      summary:
+        "Upon receiving the RMA ticket, ProdOps sends a replacement device when needed after troubleshooting to ensure minimal disruption to the client workflow.",
+    },
+    {
+      tag: "5.1 Step 4",
+      title: "5.1 Step 4: Receive and Investigate",
+      summary:
+        "When the returned device is received, ProdOps investigates observed damage and defects and documents the current disposition. Operations works with Growth/Customer Success on warranty coverage and client communication.",
+    },
+    {
+      tag: "5.1 Step 5",
+      title: "5.1 Step 5: Upload Investigation Results",
+      summary:
+        "ProdOps uploads investigation results to SharePoint as a copy of the Swift Ray 1 Failure Analysis Form identified in Section 2.",
+    },
+    {
+      tag: "5.1 Step 6",
+      title: "5.1 Step 6: Warranty Fee",
+      summary:
+        "If the warranty is void, Finance, Growth, or the Account Executive advises the customer that a fee is required.",
+    },
+    {
+      tag: "5.1 Step 7",
+      title: "5.1 Step 7: Assign Status and Quarantine",
+      summary:
+        "Assign a status based on the investigation, update all records and logs, and place the returned Ray 1, box, and contents in the quarantine cabinet unless marked for internal use.",
+    },
+    {
+      tag: "5.1 Step 8",
+      title: "5.1 Step 8: Close the Halo Ticket",
+      summary: "ProdOps closes the Halo ticket once the investigation is complete.",
+    },
+    {
+      tag: "5.2",
+      title: "5.2: When is a Replacement Sent?",
+      summary:
+        "Send a replacement device when Swift Medical receives the Halo ticket RMA form, before receiving and investigating the device, to minimize client downtime.",
     },
     {
       tag: "Check",
@@ -92,46 +133,34 @@ window.sopCardSets["sin-wi-3023"] = {
       },
     },
     {
-      tag: "Step 3",
-      title: "Receive and Investigate",
-      summary:
-        "When the returned device arrives, ProdOps records damage and defects, determines its disposition, and works with Growth/Customer Success on warranty coverage and client communication.",
-    },
-    {
-      tag: "Step 4",
-      title: "Record Results and Fees",
-      summary:
-        "Upload investigation results to SharePoint as a copy of the Swift Ray 1 Failure Analysis Form. If warranty is voided, Finance, Growth, or the Account Executive advises the customer that a fee is required.",
-    },
-    {
-      tag: "Step 5",
-      title: "Disposition and Closure",
-      summary:
-        "Assign a device status from the investigation results and update all records and logs. Place the returned Ray 1, box, and contents in the quarantine cabinet unless marked for internal use. Close the Halo ticket after the investigation.",
-    },
-    {
-      tag: "Investigation",
-      title: "Initial Examination",
+      tag: "5.3 Step 1",
+      title: "5.3 Step 1: Initial Examination",
       summary:
         "Before altering the device, photograph and note its condition and reported issues. Record whether it was returned in the original box and which contents were included, such as the alcove or charging cube.",
     },
     {
-      tag: "Investigation",
-      title: "Functional Check",
+      tag: "5.3 Step 2",
+      title: "5.3 Step 2: Functional Check",
       summary:
         "Attempt to fully charge and power on the device, then connect it to the Swift phone application. Record any step that cannot be completed.",
     },
     {
-      tag: "Investigation",
-      title: "Root Cause Analysis",
+      tag: "5.3 Step 2",
+      title: "5.3 Step 2: Root Cause Analysis",
       summary:
         "Complete an RCA based on the client-reported issue and the initial examination. Identify possible causes, define actions for each, and perform them to confirm whether a cause resulted in the defect.",
     },
     {
-      tag: "Investigation",
-      title: "Conclusion and Disposition",
+      tag: "5.3 Step 3",
+      title: "5.3 Step 3: Investigation Conclusion",
       summary:
-        "Document the root cause or confirm that the device has no observable defects and works as expected. Mark it operational for internal testing or defective and place it in Quarantine, as applicable.",
+        "Document the root cause of a non-functional device, or record that it has no observable defects and is operating as expected.",
+    },
+    {
+      tag: "5.3 Step 4",
+      title: "5.3 Step 4: Determine Device State",
+      summary:
+        "Mark the device operational and acceptable for internal testing use, or defective and place it into Quarantine, based on Swift Medical policy.",
     },
     {
       tag: "Quality Records",
