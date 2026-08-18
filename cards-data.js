@@ -1,6 +1,10 @@
 window.sopDeck = {
-  title: "WI 22471",
-  description: "Device Validation Testing — work instruction",
+  documentType: "WI",
+  documentNumber: "22471",
+  documentTitle: "Device Validation Testing",
+  documentUrl:
+    "https://swiftmedical.sharepoint.com/sites/DocumentManagementSystemSpace/SitePages/DMS-[QMS-WI-2471_A]-Device%E2%80%BFValidation-Testing-WI-8530165771.aspx",
+  description: "",
   theme: {
     accent: "#0057B8",
     surface: "#ffffff",
@@ -139,4 +143,8 @@ window.sopDeck = {
       ],
     },
   ],
+};
+
+window.sopCardSets = {
+  "device-validation": window.sopDeck,
 };

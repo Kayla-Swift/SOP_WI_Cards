@@ -38,6 +38,41 @@ from the card data with paths such as:
 }
 ```
 
+Each section can be registered as a selectable card set by loading its data file
+after `cards-data.js` in `index.html` and assigning it to `window.sopCardSets`:
+
+```js
+window.sopCardSets["my-section"] = {
+  title: "My Section",
+  description: "Training topic",
+  cards: []
+};
+```
+
+Additional uploaded images, GIFs, videos, and audio files can be added to that
+section's asset folders and referenced by individual cards.
+
+Assets reused by more than one SOP belong in `sections/shared/` so they are
+stored once, for example the completion image:
+
+```js
+{
+  type: "image",
+  src: "./sections/shared/images/complete.png",
+  alt: "SOP completion illustration"
+}
+```
+
+To use one section as an iframe page, open the shared app with its set key:
+
+```text
+index.html?set=sop-22
+index.html?set=device-validation
+```
+
+The shared app has no card-set selector or bottom control bar. Cards can be
+advanced with swipe, click zones, or keyboard arrows.
+
 ## How to update the cards
 
 1. Open `/home/runner/work/SOP_WI_Cards/SOP_WI_Cards/cards-data.js`.
@@ -50,7 +85,19 @@ from the card data with paths such as:
    - `body`
    - `bullets`
    - `media`
-  - `question`
+   - `question`
+   - `links`
+
+Use `links` only when the referenced SOP or WI URL is known:
+
+```js
+links: [
+  {
+    text: "Control of Records (QMS-SOP-0012)",
+    url: "https://swiftmedical.sharepoint.com/..."
+  }
+]
+```
 
 ### Media examples
 
