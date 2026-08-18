@@ -12,6 +12,7 @@
   const cardElement = document.getElementById("learning-card");
   const previousButton = document.getElementById("previous-button");
   const nextButton = document.getElementById("next-button");
+  const restartButton = document.getElementById("restart-button");
   const dotsElement = document.getElementById("card-dots");
   const previousPeekElement = document.getElementById("previous-peek");
   const nextPeekElement = document.getElementById("next-peek");
@@ -532,6 +533,7 @@
 
     previousButton.disabled = isFirst;
     nextButton.disabled = isLast;
+    restartButton.disabled = isFirst;
     previousNavButton.disabled = isFirst;
     nextNavButton.disabled = isLast;
   }
@@ -545,6 +547,15 @@
     if (currentIndex === 0) return;
     transitionTo(currentIndex - 1, "previous");
   }
+
+  function restart() {
+    if (currentIndex === 0) return;
+    transitionTo(0, "previous");
+  }
+
+  restartButton.addEventListener("click", function () {
+    restart();
+  });
 
   previousButton.addEventListener("click", function () {
     previous();
