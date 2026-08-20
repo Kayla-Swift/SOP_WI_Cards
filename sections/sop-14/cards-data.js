@@ -56,13 +56,7 @@ window.sopCardSets["sop-14"] = {
       summary:
         "All new employees complete QMS orientation. Management defines requirements and training frequency by job function.",
       body: "Includes quality policy and quality objectives.",
-      media: [
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1554050857-c84a8abdb5e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDYwNjl8MHwxfHNlYXJjaHwxfHxibGFja3xlbnwwfHx8fDE2ODg5OTcwNjR8MA&ixlib=rb-4.0.3&q=80&w=1080",
-          alt: "Training plan",
-        },
-      ],
+      
     },
     {
       tag: "Quiz",
@@ -104,13 +98,7 @@ window.sopCardSets["sop-14"] = {
         "Group and individual training records are maintained as quality records with attendee and completion details.",
       body:
         "Operations training often includes demonstration and shadowing of task execution.",
-      media: [
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1547127796-06bb04e4b315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDYwNjl8MHwxfHNlYXJjaHw0fHxkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE2ODkwMDEwNzZ8MA&ixlib=rb-4.0.3&q=80&w=1080",
-          alt: "Group training",
-        },
-      ],
+
     },
     {
       tag: "Waivers",
