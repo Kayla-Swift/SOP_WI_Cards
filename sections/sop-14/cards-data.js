@@ -37,13 +37,6 @@ window.sopCardSets["sop-14"] = {
       title: "Hiring Assessment",
       summary:
         "Employees are assessed for qualifications, experience, and competency, with objective evidence documented in their personnel files alongside their job descriptions. Employees also acknowledge responsibilities that affect product quality and quality objectives.",
-      media: [
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDYwNjl8MHwxfHNlYXJjaHw0fHxlbXBsb3llZXxlbnwwfHx8fDE2ODkwMDA1NTV8MA&ixlib=rb-4.0.3&q=80&w=1080",
-          alt: "Hiring assessment",
-        },
-      ],
     },
     {
       tag: "Orientation",
@@ -57,13 +50,7 @@ window.sopCardSets["sop-14"] = {
       summary:
         "The Personnel Training Matrix (QMS-REC-0086) defines mandatory QMS and job-specific training by function. The matrix is maintained and required LMS training is assigned.",
       body: "Includes quality policy, quality objectives, and security and privacy policy training.",
-      media: [
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1554050857-c84a8abdb5e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDYwNjl8MHwxfHNlYXJjaHwxfHxibGFja3xlbnwwfHx8fDE2ODg5OTcwNjR8MA&ixlib=rb-4.0.3&q=80&w=1080",
-          alt: "Training plan",
-        },
-      ],
+      
     },
     {
       tag: "Quiz",
