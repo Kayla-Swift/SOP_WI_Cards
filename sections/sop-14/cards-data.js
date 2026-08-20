@@ -22,7 +22,8 @@ window.sopCardSets["sop-14"] = {
     {
       tag: "Button",
       title: "Open SOP in SharePoint",
-      summary: "Applies to all training programs and all Swift personnel.",
+      summary:
+        "This procedure identifies training needs, assigns responsibilities, assesses competence, evaluates training effectiveness, and maintains training records. It applies to all training programs and all Swift personnel, including regular, full-time, and part-time personnel.",
       media: [
         {
           type: "button",
@@ -35,7 +36,7 @@ window.sopCardSets["sop-14"] = {
       tag: "Hiring",
       title: "Hiring Assessment",
       summary:
-        "Employees are assessed for qualifications, experience, and competency and documented in HR files.",
+        "Employees are assessed for qualifications, experience, and competency, with objective evidence documented in their personnel files alongside their job descriptions. Employees also acknowledge responsibilities that affect product quality and quality objectives.",
       media: [
         {
           type: "image",
@@ -48,14 +49,14 @@ window.sopCardSets["sop-14"] = {
       tag: "Orientation",
       title: "QMS Orientation",
       summary:
-        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained.",
+        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained. New employees complete QMS orientation plus security and privacy awareness training within one month of starting.",
     },
     {
       tag: "Plan",
       title: "Training Plan",
       summary:
-        "All new employees complete QMS orientation. Management defines requirements and training frequency by job function.",
-      body: "Includes quality policy and quality objectives.",
+        "The Personnel Training Matrix (QMS-REC-0086) defines mandatory QMS and job-specific training by function. The matrix is maintained and required LMS training is assigned.",
+      body: "Includes quality policy, quality objectives, and security and privacy policy training.",
       media: [
         {
           type: "image",
@@ -101,7 +102,7 @@ window.sopCardSets["sop-14"] = {
       tag: "Group",
       title: "Group Training",
       summary:
-        "Group and individual training records are maintained as quality records with attendee and completion details.",
+        "Group and individual training records are maintained as quality records with attendee and completion details (1 month).",
       body:
         "Operations training often includes demonstration and shadowing of task execution.",
       media: [
@@ -116,13 +117,13 @@ window.sopCardSets["sop-14"] = {
       tag: "Waivers",
       title: "Skipping Training",
       summary:
-        "Waivers may be granted in limited cases when personnel already show required, relevant, recent competency/training.",
+        "Waivers may be granted in limited cases when personnel already show required, relevant, recent competency/training. This includes if you are a doc author or if you build the training content.",
     },
     {
       tag: "Retraining",
       title: "Retraining",
       summary:
-        "Retraining is required before updated procedure effective dates and before working on affected processes/systems.",
+        "Retraining is required before updated procedure effective dates and before working on affected processes/systems. You have 1 month to complete retraining after a procedure update.",
     },
     {
       tag: "Quiz",
