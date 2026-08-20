@@ -56,13 +56,7 @@ window.sopCardSets["sop-14"] = {
       summary:
         "The Personnel Training Matrix (QMS-REC-0086) defines mandatory QMS and job-specific training by function. The matrix is maintained and required LMS training is assigned.",
       body: "Includes quality policy, quality objectives, security and privacy policy training, and job specific training.",
-      media: [
-        {
-          type: "image",
-          src: "https://images.unsplash.com/photo-1554050857-c84a8abdb5e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDYwNjl8MHwxfHNlYXJjaHwxfHxibGFja3xlbnwwfHx8fDE2ODg5OTcwNjR8MA&ixlib=rb-4.0.3&q=80&w=1080",
-          alt: "Training plan",
-        },
-      ],
+      
     },
     {
       tag: "Quiz",
@@ -85,12 +79,7 @@ window.sopCardSets["sop-14"] = {
         correctAnswer: "competent-aware",
       },
     },
-    {
-      tag: "Additional",
-      title: "Additional Training",
-      summary:
-        "Functional managers determine additional training needed and ensure completion within timelines.",
-    },
+    
     {
       tag: "Records",
       title: "Training Records",
@@ -98,22 +87,23 @@ window.sopCardSets["sop-14"] = {
         "Training effectiveness is evaluated at minimum during performance reviews and on an ongoing basis through assessments, course quizzes, internal audits, CAPA investigations, or other suitable methods. Training records are maintained in the LMS and personnel files.",
     },
     {
-      tag: "Group",
+      tag: "Alternative Training",
       title: "Group Training",
       summary:
         "Group and individual training records are maintained as quality records with attendee and completion details (1 month).",
       body:
         "Operations training often includes demonstration and shadowing of task execution.",
-
-    },
-    {
-      tag: "Waivers",
       title: "Skipping Training",
       summary:
         "Authors, approvers, and training creators of controlled documents do not require training.",
+    
     },
+    
     {
-      tag: "Retraining",
+      tag: "Retraining & Additional Training",
+      title: "Additional Training",
+      summary:
+        "Functional managers determine additional training needed and ensure completion within timelines.",
       title: "Retraining",
       summary:
         "Retraining is required before updated procedure effective dates and before working on affected processes/systems. You have 1 month to complete retraining after a procedure update.",
