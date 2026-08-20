@@ -4,7 +4,7 @@ const vm = require("vm");
 const QRCode = require("qrcode");
 
 const repositoryRoot = path.resolve(__dirname, "..");
-const siteUrl = "https://kayla-swift.github.io/SOP_WI_Cards/";
+const siteUrl = "https://swiftmedicalorg.github.io/SOP_WI_Cards/";
 const multiDocumentDecks = {
   "reference-wis-external-healx-production": {
     documentLabel: "WI 2731, WI 2732\nWI 2737",
