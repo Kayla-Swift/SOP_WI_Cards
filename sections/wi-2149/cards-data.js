@@ -1,6 +1,6 @@
 window.sopCardSets = window.sopCardSets || {};
 
-window.sopCardSets["sin-wi-2149"] = {
+window.sopCardSets["wi-2149"] = {
   documentType: "WI",
   documentNumber: "2149",
   documentTitle: "Work Instruction for Sinatra Production",

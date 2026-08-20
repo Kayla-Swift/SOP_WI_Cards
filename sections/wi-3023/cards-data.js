@@ -1,6 +1,6 @@
 window.sopCardSets = window.sopCardSets || {};
 
-window.sopCardSets["sin-wi-3023"] = {
+window.sopCardSets["wi-3023"] = {
   documentType: "WI",
   documentNumber: "3023",
   documentTitle: "Ray 1 - Return and Replacement Process",
@@ -49,7 +49,7 @@ window.sopCardSets["sin-wi-3023"] = {
       media: [
         {
           type: "image",
-          src: "./sections/sin-wi-3023/images/rma-form.svg",
+          src: "./sections/wi-3023/images/rma-form.svg",
           alt: "RMA Form: Submit RMA for Ray Devices",
           height: "11rem",
           fit: "contain",
