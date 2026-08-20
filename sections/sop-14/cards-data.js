@@ -96,7 +96,7 @@ window.sopCardSets["sop-14"] = {
       title: "Skipping Training",
       summary:
         "Authors, approvers, and training creators of controlled documents do not require training.",
-    
+     
     },
     
     {
