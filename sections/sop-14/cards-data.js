@@ -22,7 +22,8 @@ window.sopCardSets["sop-14"] = {
     {
       tag: "Button",
       title: "Open SOP in SharePoint",
-      summary: "Applies to all training programs and all Swift personnel.",
+      summary:
+        "This procedure identifies training needs, assigns responsibilities, assesses competence, evaluates training effectiveness, and maintains training records. It applies to all training programs and all Swift personnel, including regular, full-time, and part-time personnel.",
       media: [
         {
           type: "button",
@@ -35,7 +36,7 @@ window.sopCardSets["sop-14"] = {
       tag: "Hiring",
       title: "Hiring Assessment",
       summary:
-        "Employees are assessed for qualifications, experience, and competency and documented in HR files.",
+        "Employees are assessed for qualifications, experience, and competency, with objective evidence documented in their personnel files alongside their job descriptions. Employees also acknowledge responsibilities that affect product quality and quality objectives.",
       media: [
         {
           type: "image",
@@ -48,14 +49,14 @@ window.sopCardSets["sop-14"] = {
       tag: "Orientation",
       title: "QMS Orientation",
       summary:
-        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained. Training must be completed within 1 month of the hire date.",
+        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained. New employees complete QMS orientation plus security and privacy awareness training within one month of starting.",
     },
     {
       tag: "Plan",
       title: "Training Plan",
       summary:
-        "All new employees complete QMS orientation. Management defines requirements and training frequency by job function.",
-      body: "Includes quality policy and quality objectives.",
+        "The Personnel Training Matrix (QMS-REC-0086) defines mandatory QMS and job-specific training by function. Management maintains the matrix and assigns required LMS training within one month of approving new or revised QMS materials.",
+      body: "Includes quality policy, quality objectives, and security and privacy policy training.",
       
     },
     {
@@ -89,13 +90,13 @@ window.sopCardSets["sop-14"] = {
       tag: "Records",
       title: "Training Records",
       summary:
-        "Effectiveness is evaluated at least every 18 months during performance reviews and ongoing audits/CAPA.",
+        "Training effectiveness is evaluated at minimum during performance reviews and on an ongoing basis through assessments, course quizzes, internal audits, CAPA investigations, or other suitable methods. Training records are maintained in the LMS and personnel files.",
     },
     {
       tag: "Group",
       title: "Group Training",
       summary:
-        "Group and individual training records are maintained as quality records with attendee and completion details.",
+        "Group and individual training records are maintained as quality records with attendee and completion details. Personnel files and training records are monitored to confirm required training is completed and logged.",
       body:
         "Operations training often includes demonstration and shadowing of task execution.",
 
@@ -104,13 +105,13 @@ window.sopCardSets["sop-14"] = {
       tag: "Waivers",
       title: "Skipping Training",
       summary:
-        "Waivers may be granted in limited cases when personnel already show required, relevant, recent competency/training.",
+        "Authors, approvers, and training creators of controlled documents do not require training.",
     },
     {
       tag: "Retraining",
       title: "Retraining",
       summary:
-        "Retraining is required before updated procedure effective dates and before working on affected processes/systems. This must happen within 1 month of the update.",
+        "Retraining is required before updated procedure effective dates and before working on affected processes or systems. Required retraining must be completed within one month of the updated procedure, logged in the LMS, and recorded in the SOP Impact Assessments Log (QMS-REC-0942).",
     },
     {
       tag: "Quiz",
