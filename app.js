@@ -40,6 +40,7 @@
   let animationDirection = "";
   let pointerStartX = null;
   let pointerDragging = false;
+  let quizPromptShown = false;
 
 
   function applyDeck() {
@@ -99,6 +100,7 @@
 
   function render() {
     const card = visibleCards[currentIndex];
+    quizPromptShown = false;
 
     console.log('Rendering card', currentIndex, card && card.title);
 
@@ -111,9 +113,14 @@
 
     frontTitleElement.textContent = card.title || "";
     backTitleElement.textContent = card.title || "";
+    // Suppress the front summary when it just repeats the quiz prompt shown below.
+    const quizPrompt = card.question && card.question.prompt;
+    const summaryRepeatsPrompt = Boolean(quizPrompt) && typeof card.summary === "string" &&
+      card.summary.trim() === quizPrompt.trim();
+    const frontSummary = summaryRepeatsPrompt ? "" : card.summary;
     // Show summary and fall back to body on the front so content isn't hidden
-    const frontText = card.summary
-      ? card.summary + (card.body ? "\n\n" + card.body : "")
+    const frontText = frontSummary
+      ? frontSummary + (card.body ? "\n\n" + card.body : "")
       : card.body || "";
     renderLinkedText(frontSummaryElement, frontText, card.links);
     renderLinkedText(backBodyElement, card.body || card.summary || "", card.links);
@@ -284,6 +291,7 @@
         }
 
         choices.classList.add("is-answered");
+        removeQuizPrompt();
 
         const isCorrect = hasCorrectAnswer &&
           selectedValues.size > 0
@@ -328,6 +336,7 @@
         event.stopPropagation();
         if (selectedValues.size === 0 || choices.classList.contains("is-answered")) return;
         choices.classList.add("is-answered");
+        removeQuizPrompt();
         (question.choices || []).forEach(function (item, index) {
           const choiceButton = choices.children[index];
           choiceButton.disabled = true;
@@ -347,8 +356,49 @@
     }
   }
 
+  // On the first forward attempt from an unanswered quiz card, nudge the user to try it.
+  function isQuizPending() {
+    const card = visibleCards[currentIndex];
+    if (!card || !card.question) return false;
+    const choices = checkQuestionElement.querySelector(".question-choices");
+    return Boolean(choices) && !choices.classList.contains("is-answered");
+  }
+
+  function shouldPromptForQuiz() {
+    if (!isQuizPending()) return false;
+    if (quizPromptShown) return false;
+    quizPromptShown = true;
+    showQuizPrompt();
+    return true;
+  }
+
+  function showQuizPrompt() {
+    let note = checkQuestionElement.querySelector(".question-nudge");
+    if (!note) {
+      note = document.createElement("p");
+      note.className = "question-nudge";
+      note.setAttribute("role", "status");
+      note.setAttribute("aria-live", "assertive");
+      checkQuestionElement.appendChild(note);
+    }
+    note.textContent = "Try the quiz before continuing \u2014 tap or swipe again to skip.";
+    checkQuestionElement.classList.remove("is-nudging");
+    void checkQuestionElement.offsetWidth;
+    checkQuestionElement.classList.add("is-nudging");
+  }
+
+  function removeQuizPrompt() {
+    const note = checkQuestionElement.querySelector(".question-nudge");
+    if (note) note.remove();
+    checkQuestionElement.classList.remove("is-nudging");
+  }
+
   function transitionTo(index, direction) {
     if (index < 0 || index >= visibleCards.length || index === currentIndex) {
+      return;
+    }
+
+    if (index > currentIndex && shouldPromptForQuiz()) {
       return;
     }
 
@@ -542,7 +592,6 @@
     if (currentIndex === visibleCards.length - 1) return;
     transitionTo(currentIndex + 1, "next");
   }
-
   function previous() {
     if (currentIndex === 0) return;
     transitionTo(currentIndex - 1, "previous");
