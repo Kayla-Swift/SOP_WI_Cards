@@ -2,6 +2,9 @@
 
 :root {
   --accent: #0057b8;
+  /* Darker accent reserved for accent-coloured text on light surfaces (WCAG AAA). */
+  --accent-text: #004a99;
+  --success: #0a5f33;
   --navy: #2e3c63;
   --blue-white: #f0f3f8;
   --mist: #e4e9f4;
@@ -9,7 +12,7 @@
   --surface: #ffffff;
   --background: #f0f3f8;
   --text: #2e3c63;
-  --muted: #4a5b85;
+  --muted: #3a4a70;
   --border: rgba(46, 60, 99, 0.14);
   --shadow: 0 24px 60px rgba(46, 60, 99, 0.14);
 }
@@ -71,7 +74,7 @@ button:disabled {
 .deck-link[href]:hover .deck-cta,
 .deck-link[href]:focus-visible .deck-cta {
   color: #ffffff;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .deck-link[href]:hover h1 {
@@ -133,7 +136,7 @@ button:disabled {
   padding: 0.55rem 0.8rem;
   border: 1px solid rgba(0, 87, 184, 0.22);
   border-radius: 10px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.9rem;
   font-weight: 600;
   background: #ffffff;
@@ -146,7 +149,7 @@ button:disabled {
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
   background: rgba(0, 87, 184, 0.1);
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -419,7 +422,7 @@ figcaption {
 }
 
 .card-back p a {
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 600;
   text-decoration: underline;
 }
@@ -443,7 +446,7 @@ figcaption {
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .front-wi-button:hover {
@@ -555,7 +558,7 @@ figcaption {
 
 .question-choice.is-correct::after {
   content: "CORRECT";
-  color: #0a8f4d;
+  color: var(--success);
   background: #ffffff;
 }
 
@@ -571,9 +574,9 @@ figcaption {
 }
 
 .question-choice.is-correct {
-  border-color: #0a8f4d;
+  border-color: var(--success);
   color: #ffffff;
-  background: #0a8f4d;
+  background: var(--success);
 }
 
 .question-choice.is-incorrect {
@@ -583,9 +586,9 @@ figcaption {
 }
 
 .question-choice.is-selected {
-  border-color: var(--accent);
+  border-color: var(--accent-text);
   color: #ffffff;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .question-submit {
@@ -595,7 +598,7 @@ figcaption {
   border-radius: 12px;
   color: #ffffff;
   font-weight: 600;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .question-submit:disabled {
@@ -628,7 +631,41 @@ figcaption {
 }
 
 .question-feedback.is-selected {
-  color: var(--accent);
+  color: var(--accent-text);
+}
+
+.question-nudge {
+  margin: 0.85rem 0 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  color: #ffffff;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.check-question.is-nudging {
+  animation: quiz-nudge 0.4s ease;
+}
+
+@keyframes quiz-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-question.is-nudging {
+    animation: none;
+  }
 }
 
 .front-media {
@@ -734,7 +771,7 @@ figcaption {
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .sop-link-button:hover {
@@ -770,11 +807,11 @@ figcaption {
 
 .primary-button {
   color: #ffffff;
-  background: var(--accent);
+  background: var(--accent-text);
 }
 
 .secondary-button {
-  color: var(--accent);
+  color: var(--accent-text);
   background: rgba(0, 87, 184, 0.1);
 }
 
