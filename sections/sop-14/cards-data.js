@@ -48,7 +48,7 @@ window.sopCardSets["sop-14"] = {
       tag: "Orientation",
       title: "QMS Orientation",
       summary:
-        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained.",
+        "Employees are assessed, training needs are identified, required training is delivered, and awareness of quality contributions is maintained. Training must be completed within 1 month of the hire date.",
     },
     {
       tag: "Plan",
@@ -122,7 +122,7 @@ window.sopCardSets["sop-14"] = {
       tag: "Retraining",
       title: "Retraining",
       summary:
-        "Retraining is required before updated procedure effective dates and before working on affected processes/systems.",
+        "Retraining is required before updated procedure effective dates and before working on affected processes/systems. This must happen within 1 month of the update.",
     },
     {
       tag: "Quiz",
