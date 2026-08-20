@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;600;700&display=swap");
+
 :root {
   --accent: #0057b8;
   --navy: #2e3c63;
@@ -19,7 +21,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: var(--text);
   background: linear-gradient(180deg, #ffffff 0%, var(--background) 100%);
 }
@@ -86,6 +88,7 @@ button:disabled {
 
 .hero h1 {
   margin: 0;
+  font-family: "Barlow Condensed", Arial, Helvetica, sans-serif;
   font-size: clamp(1rem, 2vw, 1.75rem);
 }
 
@@ -123,7 +126,7 @@ button:disabled {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .restart-button {
@@ -132,7 +135,7 @@ button:disabled {
   border-radius: 10px;
   color: var(--accent);
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
   background: #ffffff;
 }
 
@@ -145,7 +148,7 @@ button:disabled {
   background: rgba(0, 87, 184, 0.1);
   color: var(--accent);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .card-frame {
@@ -211,7 +214,7 @@ button:disabled {
 
 .card-peek span {
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
 }
 
@@ -397,6 +400,7 @@ button:disabled {
 .card-front h2,
 .card-back h2 {
   margin: 0.75rem 0;
+  font-family: "Barlow Condensed", Arial, Helvetica, sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.8rem);
 }
 
@@ -411,12 +415,12 @@ figcaption {
 
 .card-front p,
 .card-back p {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .card-back p a {
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: underline;
 }
 
@@ -436,7 +440,7 @@ figcaption {
   border-radius: 16px;
   color: #ffffff;
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   text-decoration: none;
   background: var(--accent);
@@ -454,7 +458,7 @@ figcaption {
   border-radius: 12px;
   color: var(--text);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: left;
   background: rgba(255, 255, 255, 0.92);
 }
@@ -474,13 +478,13 @@ figcaption {
 .question-prompt {
   margin: 0 0 0.85rem;
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .question-instruction {
   margin: -0.35rem 0 0.85rem;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .question-choices {
@@ -499,7 +503,7 @@ figcaption {
   border: 2px solid rgba(46, 60, 99, 0.16);
   border-radius: 12px;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 600;
   text-align: left;
   background: #ffffff;
 }
@@ -590,7 +594,7 @@ figcaption {
   padding: 0.8rem 1rem;
   border-radius: 12px;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 600;
   background: var(--accent);
 }
 
@@ -600,7 +604,7 @@ figcaption {
 
 .question-feedback {
   margin: 0 0 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .question-feedback:empty {
@@ -727,7 +731,7 @@ figcaption {
   padding: 1rem 1.2rem;
   color: #ffffff;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   text-decoration: none;
   background: var(--accent);
@@ -761,7 +765,7 @@ figcaption {
 .secondary-button,
 .ghost-button {
   padding: 0.85rem 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .primary-button {
