@@ -93,9 +93,7 @@ window.sopCardSets["sop-14"] = {
         "Group and individual training records are maintained as quality records with attendee and completion details (1 month).",
       body:
         "Operations training often includes demonstration and shadowing of task execution.",
-      title: "Skipping Training",
-      summary:
-        "Authors, approvers, and training creators of controlled documents do not require training.",
+        "Skipping Training: Authors, approvers, and training creators of controlled documents do not require training.",
      
     },
     
@@ -104,8 +102,6 @@ window.sopCardSets["sop-14"] = {
       title: "Additional Training",
       summary:
         "Functional managers determine additional training needed and ensure completion within timelines.",
-      title: "Retraining",
-      summary:
         "Retraining is required before updated procedure effective dates and before working on affected processes/systems. You have 1 month to complete retraining after a procedure update.",
     },
     {
